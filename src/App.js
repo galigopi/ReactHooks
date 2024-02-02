@@ -2,17 +2,17 @@ import './App.css';
 import { useReducer, useState, useRef, useLayoutEffect, createContext } from 'react';
 import { useEffect } from 'react';
 import UseContextUseing from './components/useContextUseing';
-
+// using useReducer 1step
 const initialState = { count: 0, userData: [] }
 
-
+// using useReducer 2ndstep actions
 const ACTIONS = {
   INCREMENT: "increment",
   DECREMENT: "decrement",
   FETCH: "fetch"
 }
 
-
+// using useReducer 3rd step reducer
 const reducer = (state, action) => {
   switch (action.type) {
     case ACTIONS.INCREMENT:
@@ -30,10 +30,12 @@ const reducer = (state, action) => {
 export const ContentData = createContext();
 
 function App() {
-
+  // using useReducer 4th step declaration 
   const [state, dispatch] = useReducer(reducer, initialState)
+
   const reftab = useRef()
   const handleIncrement = () => {
+    // using useReducer 5th step using dispath
     dispatch({
       type: ACTIONS.INCREMENT
     })
@@ -70,6 +72,7 @@ function App() {
 
 
   return (
+    // using useReducer 6th step using state
     <ContentData.Provider value={state}>
       <UseContextUseing
         handleClear={handleClear}
