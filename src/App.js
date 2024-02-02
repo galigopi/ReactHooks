@@ -27,6 +27,8 @@ const reducer = (state, action) => {
       return state
   }
 }
+
+// 1st step for using useContext : creating context and using the this values to all children compoents. 
 export const ContentData = createContext();
 
 function App() {
@@ -46,10 +48,12 @@ function App() {
     })
   }
 
-  const [data, setData] = useState()
+  const [data, setData] = useState() // useState used for State declaration & setting the newState also.
+
   const handleFetch = () => {
+    // basic javascript fetch call
     fetch('https://jsonplaceholder.typicode.com/todos')
-      .then(response => response.json().then(response => setData(response)))
+      .then(response => response.json().then(response => setData(response))) // response.json written promises so using .then(res=>setData(res))
   }
   useEffect(() => {
     if (data)
@@ -57,7 +61,7 @@ function App() {
         type: ACTIONS.FETCH,
         payload: data
       })
-  }, [data])
+  }, [data]) // data is dependency of useEffect, it means when data us change useEffect will execute 
 
   const handleClear = () => {
     dispatch({
@@ -68,12 +72,13 @@ function App() {
   useLayoutEffect(() => {
     reftab.current.style.background = "black"
     reftab.current.style.color = "white"
-  }, [state.count])
+  }, [state.count]) // useLayoutEffect is similer to useEffect, but it is execute before useEffect.
 
 
   return (
     // using useReducer 6th step using state
-    <ContentData.Provider value={state}>
+    // 2nd step for using useContext :contextName.Provider and value can use all the children.
+    <ContentData.Provider value={state}> 
       <UseContextUseing
         handleClear={handleClear}
         handleDecrement={handleDecrement}

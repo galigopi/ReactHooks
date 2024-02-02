@@ -3,6 +3,7 @@ import { ContentData } from '../App'
 
 
 const UseContextUseing = ( props ) => {
+  // 3rd step for using useContext : fetching the values from global component.
   const data = useContext(ContentData)
 
   return (
