@@ -1,7 +1,9 @@
 import './App.css';
-import { useReducer, useState, useRef, useLayoutEffect, createContext } from 'react';
-import { useEffect } from 'react';
-import UseContextUseing from './components/useContextUseing';
+import { useReducer, useState, useRef, useLayoutEffect, createContext, useEffect } from 'react';
+import UseContextUseing from './components/useContextUsing';
+import UseCallbackUsing from './components/useCallbackUsing'
+import TodoList from './components/TodoList';
+
 // using useReducer 1step
 const initialState = { count: 0, userData: [] }
 
@@ -9,7 +11,8 @@ const initialState = { count: 0, userData: [] }
 const ACTIONS = {
   INCREMENT: "increment",
   DECREMENT: "decrement",
-  FETCH: "fetch"
+  FETCH: "fetch",
+  CLEAR: "clear"
 }
 
 // using useReducer 3rd step reducer
@@ -21,7 +24,7 @@ const reducer = (state, action) => {
       return { ...state, count: state.count - 1 }
     case ACTIONS.FETCH:
       return { ...state, userData: action.payload }
-    case "clear":
+    case ACTIONS.CLEAR:
       return initialState
     default:
       return state
@@ -65,7 +68,7 @@ function App() {
 
   const handleClear = () => {
     dispatch({
-      type: "clear",
+      type: ACTIONS.CLEAR
     })
   }
 
@@ -78,7 +81,8 @@ function App() {
   return (
     // using useReducer 6th step using state
     // 2nd step for using useContext :contextName.Provider and value can use all the children.
-    <ContentData.Provider value={state}> 
+    <ContentData.Provider value={state}>
+      <div className='App'>
       <UseContextUseing
         handleClear={handleClear}
         handleDecrement={handleDecrement}
@@ -86,7 +90,9 @@ function App() {
         handleIncrement={handleIncrement}
         reftab={reftab}
       />
-
+      <UseCallbackUsing />
+      <TodoList />
+      </div>
     </ContentData.Provider>
   );
 }
